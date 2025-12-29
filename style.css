@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f8;
+    color: #222;
+}
+
+header {
+    background: #1f2933;
+    color: #fff;
+    padding: 30px;
+    text-align: center;
+}
+
+nav {
+    background: #111827;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    margin: 0 12px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+    background: #fff;
+    margin-top: 20px;
+}
+
+h2 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #1f2933;
+    color: #fff;
+    margin-top: 40px;
+}
+
+/* Responsive improvements */
+* { box-sizing: border-box; }
+
+/* Make images and iframes scale */
+img, iframe, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Navigation: allow wrapping on small screens */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+nav a {
+    display: inline-block;
+    padding: 8px 12px;
+}
+
+/* Sections: use fluid padding on small screens */
+section {
+    padding: 20px;
+}
+
+/* Smaller header on mobile */
+header {
+    padding: 20px;
+}
+
+/* Make the main content area responsive */
+.content, section {
+    max-width: 100%;
+}
+
+/* Utility: readable type scaling on small screens */
+@media (max-width: 600px) {
+    body { font-size: 16px; }
+    header h1 { font-size: 1.4rem; }
+    nav a { font-size: 0.95rem; padding: 8px; }
+}
+
+/* Ensure lists have standard marker alignment unless overridden */
+ul, ol { list-style-position: outside; padding-left: 1.25rem; }
+
