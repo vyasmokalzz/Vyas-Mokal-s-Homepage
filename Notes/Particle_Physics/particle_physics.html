@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Spacetime and Geometry – Solutions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="latex_macros.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<link rel="stylesheet" href="../../style.css">
+
+<style>
+/* Desktop layout: two-column with fixed right sidebar */
+.container { display:flex; align-items:flex-start; }
+.sidebar {
+  width:260px; background:#111827; color:#fff; height:100vh; overflow:auto;
+  padding:15px; position:fixed; right:0; top:0;
+}
+.sidebar h3 { border-bottom:1px solid #444; padding-bottom:6px; cursor:pointer; }
+.sidebar a { display:block; color:#ddd; text-decoration:none; margin:4px 0 4px 12px; }
+.sidebar a:hover { color:#fff; }
+
+.content { margin-right:280px; padding:40px; max-width:900px; }
+
+/* Mobile: stack content and sidebar, make sidebar flow below content */
+@media (max-width: 900px) {
+  .container { display:block; }
+  .sidebar {
+    position:static; /* put in normal flow */
+    width:100%;
+    height:auto;
+    margin-top: 12px;
+    padding:12px;
+    right:auto;
+    top:auto;
+  }
+  .content { margin-right:0; padding:20px; max-width:100%; }
+  /* Make sidebar links more touch friendly */
+  .sidebar a { margin:8px 0; padding:6px 6px; }
+}
+
+/* Tweak for very small screens */
+@media (max-width: 420px) {
+  .content { padding:14px; }
+  .sidebar { padding:10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="content">
+<h1>Spacetime and Geometry – Solution Manual</h1>
+<p><a href="../../index.html">← Back to Homepage</a></p>
+<div id="problem-container">Select a problem from the right panel.</div>
+</div>
+
+<div class="sidebar" id="sidebar"></div>
+
+</div>
+
+<script src="problems.js"></script>
+</body>
+</html>

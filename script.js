@@ -5,8 +5,8 @@ const solutions = [
 
 
 const notes = [
-    { name: "Machine Learning Notes", file: "files/ml_notes.pdf" },
-    { name: "Optimization Theory", file: "files/optimization.pdf" }
+    { name: "Particle Physics", file: "Notes/Particle_Physics/particle_physics.html" },
+    { name: "Non-Linear Dyanmaics", file: "files/optimization.pdf"}
 ];
 
 function populateList(listId, data) {
@@ -24,3 +24,36 @@ function populateList(listId, data) {
 
 populateList("solution-list", solutions);
 populateList("notes-list", notes);
+
+// Blog expand/collapse behavior for homepage
+document.addEventListener('DOMContentLoaded', () => {
+    const navBlog = document.getElementById('nav-blog');
+    const blogSection = document.getElementById('blog');
+    if (!blogSection || !navBlog) return;
+
+    // start collapsed
+    blogSection.classList.add('blog-section-collapsed');
+    blogSection.classList.remove('expanded');
+    navBlog.setAttribute('aria-expanded', 'false');
+
+    function toggleBlog(e) {
+        if (e) e.preventDefault();
+        const isExpanded = blogSection.classList.toggle('expanded');
+        blogSection.classList.toggle('blog-section-collapsed', !isExpanded);
+        navBlog.setAttribute('aria-expanded', String(isExpanded));
+        if (isExpanded) {
+            // scroll into view smoothly
+            blogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    // Click on nav link toggles blog instead of jumping
+    navBlog.addEventListener('click', toggleBlog);
+
+    // Allow clicking the section heading to toggle as well
+    const blogHeading = blogSection.querySelector('h2');
+    if (blogHeading) {
+        blogHeading.style.cursor = 'pointer';
+        blogHeading.addEventListener('click', toggleBlog);
+    }
+});

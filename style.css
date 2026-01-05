@@ -93,3 +93,75 @@ header {
 /* Ensure lists have standard marker alignment unless overridden */
 ul, ol { list-style-position: outside; padding-left: 1.25rem; }
 
+/* Blog-specific styles */
+.blog-header {
+    background: linear-gradient(90deg,#111827,#1f2933);
+    color: #fff;
+    padding: 28px 20px;
+    text-align: center;
+}
+.blog-header h1 { margin: 0 0 6px; font-size: 1.6rem; }
+.blog-header p { margin: 0; opacity: 0.85; }
+
+.blog-content {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    display: grid;
+    gap: 18px;
+}
+.blog-content .page { background:#fafafa; padding:10px; border:1px solid #eee; }
+.blog-content img { display:block; margin: 0 auto; border-radius:4px; }
+
+.blog-footer { text-align:center; padding:18px; color:#666; }
+
+/* Blog list card for index */
+.blog-list { display:block; max-width:900px; margin: 0 auto; padding: 20px; }
+.blog-section-collapsed .blog-list { display:none; }
+#blog.expanded .blog-list { display:block; }
+
+/* Smooth collapse (optional): limit max-height when collapsed */
+.blog-list {
+    transition: max-height 0.28s ease, opacity 0.2s ease;
+    overflow: hidden;
+}
+.blog-section-collapsed .blog-list { max-height: 0; opacity: 0; }
+#blog.expanded .blog-list { max-height: 2000px; opacity: 1; }
+.blog-list a { display:block; padding:12px 14px; background:#fff; border:1px solid #e6e6e6; margin:8px 0; color:#111827; text-decoration:none; border-radius:6px; }
+.blog-list a:hover { background:#f3f4f6; }
+
+/* Featured blog card on the homepage */
+.featured-blog {
+    display:flex;
+    gap:16px;
+    align-items:center;
+    background:#fff;
+    border:1px solid #e6e6e6;
+    padding:12px;
+    border-radius:8px;
+}
+.featured-blog img {
+    width:160px;
+    height:110px;
+    object-fit:cover;
+    border-radius:6px;
+    flex-shrink:0;
+}
+.featured-content h3 { margin:0 0 6px; }
+.featured-content .excerpt { margin:0 0 10px; color:#444; }
+.btn {
+    display:inline-block;
+    background:#111827;
+    color:#fff;
+    padding:8px 12px;
+    border-radius:6px;
+    text-decoration:none;
+}
+.btn:hover { background:#0b1220; }
+
+@media (max-width:700px) {
+    .featured-blog { flex-direction:column; align-items:flex-start; }
+    .featured-blog img { width:100%; height:auto; }
+}
+
