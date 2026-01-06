@@ -6,7 +6,7 @@ const solutions = [
 
 const notes = [
     { name: "Particle Physics", file: "Notes/Particle_Physics/particle_physics.html" },
-    { name: "Non-Linear Dyanmaics", file: "files/optimization.pdf"}
+    { name: "Non-Linear Dynamics", file: "pdf_viewer.html?file=Notes/Non-Linear_Dyanmics/Non_Linear_Dynamics.pdf", target: "_self"}
 ];
 
 function populateList(listId, data) {
@@ -16,7 +16,7 @@ function populateList(listId, data) {
         const a = document.createElement("a");
         a.href = item.file;
         a.innerText = item.name;
-        a.target = "_blank";
+        a.target = item.target || "_blank";
         li.appendChild(a);
         list.appendChild(li);
     });

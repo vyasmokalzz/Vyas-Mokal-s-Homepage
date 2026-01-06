@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Git Push Guidelines</title>
+<style>
+  :root{--bg:#0f1724;--card:#071028;--accent:#06b6d4;--muted:#94a3b8;--text:#e6eef6}
+  body{background:linear-gradient(180deg,#031024 0%,#061a2b 100%);color:var(--text);font-family:Inter,Segoe UI,Arial;line-height:1.5;padding:24px}
+  .container{max-width:900px;margin:0 auto}
+  h1{color:var(--accent);margin-bottom:4px}
+  p.lead{color:var(--muted);margin-top:0}
+  pre{background:var(--card);padding:12px;border-radius:8px;overflow:auto;color:var(--text);border:1px solid rgba(255,255,255,0.03)}
+  code{color:#dbeafe}
+  section{margin:20px 0;padding:18px;background:rgba(255,255,255,0.02);border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+  .btn{display:inline-block;padding:8px 12px;background:var(--accent);color:#012; border-radius:8px;text-decoration:none;font-weight:600}
+  footer{color:var(--muted);font-size:0.9rem;margin-top:18px}
+  @media (max-width:600px){body{padding:14px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Git Push Guidelines</h1>
+  <p class="lead">A friendly checklist for pushing changes to GitHub (PowerShell).</p>
+
+  <section>
+    <h2>1. Quick checks</h2>
+    <pre><code>cd 'C:\Users\vyasa\My Files\Homepage'
+git status
+git branch --show-current
+git log --oneline -n 5</code></pre>
+  </section>
+
+  <section>
+    <h2>2. Stage & commit</h2>
+    <pre><code>git add -A
+git commit -m "Short, meaningful message"</code></pre>
+  </section>
+
+  <section>
+    <h2>3. Sync remote & rebase (recommended)</h2>
+    <pre><code>git pull --rebase origin main
+git push origin main</code></pre>
+    <p class="muted">If you encounter conflicts: fix them, <code>git add</code>, then <code>git rebase --continue</code>.</p>
+  </section>
+
+  <section>
+    <h2>4. New branch workflow</h2>
+    <pre><code>git checkout -b feature/short-name
+# work, commit...
+git push -u origin feature/short-name</code></pre>
+  </section>
+
+  <section>
+    <h2>5. If push is rejected</h2>
+    <p>Fetch + rebase as above, or inspect diffs:</p>
+    <pre><code>git fetch origin
+git log --oneline HEAD..origin/main   # remote-only commits
+git log --oneline origin/main..HEAD   # local-only commits</code></pre>
+  </section>
+
+  <section>
+    <h2>6. Force push (use with caution)</h2>
+    <pre><code>git push --force-with-lease origin main</code></pre>
+  </section>
+
+  <footer>
+    <p>Tip: Use SSH for easier auth, or store a PAT for HTTPS. For help, paste errors here and I’ll guide you.</p>
+  </footer>
+</div>
+</body>
+</html>

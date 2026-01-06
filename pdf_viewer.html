@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>PDF Viewer</title>
+    <style>
+        body{margin:0;font-family:Arial,Helvetica,sans-serif}
+        header{padding:12px;background:#f3f3f3;border-bottom:1px solid #ddd}
+        a.back{color:#333;text-decoration:none}
+        #viewer{height:calc(100vh - 50px)}
+        iframe{width:100%;height:100%;border:0}
+        .msg{padding:20px}
+    </style>
+</head>
+<body>
+    <header>
+        <a class="back" href="index.html">← Back to homepage</a>
+    </header>
+    <div id="viewer">
+        <iframe id="pdfFrame" title="PDF viewer"></iframe>
+    </div>
+
+    <script>
+    function getQueryParam(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name);
+    }
+
+    const fileParam = getQueryParam('file');
+    if (!fileParam) {
+        document.getElementById('viewer').innerHTML = '<div class="msg">No file specified.</div>';
+    } else {
+        const decoded = decodeURIComponent(fileParam);
+        // basic safety: disallow parent-directory traversal
+        if (decoded.includes('..')) {
+            document.getElementById('viewer').innerHTML = '<div class="msg">Invalid file path.</div>';
+        } else {
+            // Set iframe src to the provided relative path
+            document.getElementById('pdfFrame').src = decoded;
+        }
+    }
+    </script>
+</body>
+</html>
