@@ -1,6 +1,6 @@
 const solutions = [
     { name: "Spacetime and Geometry by Sean Carrol", file: "Solution_Manuals/Spacetime_and_Geometry/Carrol_Gravity.html" },
-    { name: "Quantum Mechanics", file: "quantum_mechanics.html" }
+    { name: "Modern Quantum Mechanics J.J. Sakurai", file: "Solution_Manuals/Quantum_Mechanics/Modern_Quantum_Mechanics_Sakurai.html" }
 ];
 
 
@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const isExpanded = blogSection.classList.toggle('expanded');
         blogSection.classList.toggle('blog-section-collapsed', !isExpanded);
         navBlog.setAttribute('aria-expanded', String(isExpanded));
+        const blogExpandBtn = document.getElementById('blog-expand');
+        if (blogExpandBtn) blogExpandBtn.setAttribute('aria-expanded', String(isExpanded));
         if (isExpanded) {
             // scroll into view smoothly
             blogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -55,5 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (blogHeading) {
         blogHeading.style.cursor = 'pointer';
         blogHeading.addEventListener('click', toggleBlog);
+    }
+    const blogExpandBtn = document.getElementById('blog-expand');
+    if (blogExpandBtn) {
+        blogExpandBtn.addEventListener('click', toggleBlog);
+        blogExpandBtn.style.cursor = 'pointer';
     }
 });
