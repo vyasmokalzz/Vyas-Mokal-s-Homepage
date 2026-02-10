@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>River Flows in You | Vyas Mokal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .artist {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .player {
+            margin: 30px 0;
+        }
+        
+        audio {
+            width: 100%;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        
+        .description {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #764ba2;
+        }
+        
+        .back-link::before {
+            content: "← ";
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>River Flows in You</h1>
+            <p class="artist">A Musical Piece</p>
+        </header>
+        
+        <div class="player">
+            <audio controls>
+                <source src="River Flows in you.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        
+        <p class="description">
+            A soothing musical composition that captures the essence of flow and movement. 
+            This piece is inspired by the natural rhythm of life and the continuous journey we all undertake.
+        </p>
+        
+        <a href="../../index.html#blog" class="back-link">Back to Blog</a>
+    </div>
+</body>
+</html>
