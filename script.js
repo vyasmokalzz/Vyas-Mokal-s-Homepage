@@ -5,7 +5,13 @@ const solutions = [
 
 
 const notes = [
-    { name: "Particle Physics", file: "Notes/Particle_Physics/particle_physics.html" },
+    { 
+        name: "Particle Physics", 
+        file: "Notes/Particle_Physics/particle_physics.html",
+        sublists: [
+            { name: "Assignments", file: "pdf_viewer.html?file=Notes/Particle_Physics/Partcle_Physics_Assignment.pdf", target: "_self" }
+        ]
+    },
     { name: "Non-Linear Dynamics", file: "pdf_viewer.html?file=Notes/Non-Linear_Dyanmics/Non_Linear_Dynamics.pdf", target: "_self"},
     { name: "Quantum Field Theory", file: "pdf_viewer.html?file=Notes/QFT/Quantum_Field_Theory_Notes.pdf", target: "_self"},
     { name: "Group Theory", file: "pdf_viewer.html?file=Notes/Group_Theory/Group_Theory.pdf", target: "_self"}
@@ -20,6 +26,22 @@ function populateList(listId, data) {
         a.innerText = item.name;
         a.target = item.target || "_blank";
         li.appendChild(a);
+        
+        // Add sublists if they exist
+        if (item.sublists && item.sublists.length > 0) {
+            const sublist = document.createElement("ul");
+            item.sublists.forEach(subitem => {
+                const subli = document.createElement("li");
+                const suba = document.createElement("a");
+                suba.href = subitem.file;
+                suba.innerText = subitem.name;
+                suba.target = subitem.target || "_blank";
+                subli.appendChild(suba);
+                sublist.appendChild(subli);
+            });
+            li.appendChild(sublist);
+        }
+        
         list.appendChild(li);
     });
 }
