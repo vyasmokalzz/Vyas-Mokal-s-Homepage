@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Researcher</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f0e8d0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Courier Prime', monospace;
+  }
+
+  .sticky {
+    background: #fdf6e3;
+    width: 780px;
+    padding: 28px 32px 24px;
+    box-shadow: 3px 3px 0 #c8b89a, 6px 6px 0 #b0a080, 2px 2px 12px rgba(0,0,0,0.15);
+    position: relative;
+    border: 1px solid #ddd0b0;
+  }
+
+  .sticky::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(90deg, #e8d5a0 0px, #e8d5a0 2px, transparent 2px, transparent 6px);
+  }
+
+  .title {
+    font-family: 'Special Elite', cursive;
+    font-size: 28px;
+    color: #2a1f0e;
+    text-align: center;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 9px;
+    color: #8a7a5a;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+
+  .year {
+    font-family: 'Special Elite', cursive;
+    font-size: 11px;
+    color: #8a7a5a;
+    text-align: center;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .month-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .month-name {
+    font-family: 'Special Elite', cursive;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #3a2a10;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2.5px;
+  }
+
+  .day {
+    width: 100%;
+    aspect-ratio: 1;
+    border: 1px solid #c8b080;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+
+  .day:hover {
+    background: #f0d898;
+  }
+
+  .day.filled {
+    background: #2a1f0e;
+    border-color: #2a1f0e;
+  }
+
+  .day.empty {
+    border: none;
+    cursor: default;
+    background: transparent;
+  }
+
+  .day.today {
+    border-color: #8b4513;
+    border-width: 1.5px;
+  }
+
+  .divider {
+    height: 1px;
+    background: repeating-linear-gradient(90deg, #c8b080 0px, #c8b080 4px, transparent 4px, transparent 8px);
+    margin: 14px 0 10px;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 8px;
+    color: #8a7a5a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .legend-box {
+    width: 8px;
+    height: 8px;
+    border: 1px solid #c8b080;
+  }
+
+  .legend-box.filled {
+    background: #2a1f0e;
+    border-color: #2a1f0e;
+  }
+
+  .count {
+    font-size: 8px;
+    color: #8a7a5a;
+    letter-spacing: 1px;
+    font-family: 'Special Elite', cursive;
+  }
+
+  .tape {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 20px;
+    background: rgba(255,240,180,0.7);
+    border: 1px solid rgba(200,180,100,0.4);
+  }
+
+  @media print {
+    body { background: white; }
+    .sticky { box-shadow: none; border: 1px solid #ccc; }
+    .day { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .day.filled { background: #2a1f0e !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sticky">
+  <div class="tape"></div>
+  <div class="title">The Researcher</div>
+  <div class="subtitle">mark every day you show up</div>
+  <div class="year">2025</div>
+
+  <div class="grid" id="calendar"></div>
+
+  <div class="divider"></div>
+
+  <div class="footer">
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-box"></div>
+        <span>empty</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-box filled"></div>
+        <span>done</span>
+      </div>
+    </div>
+    <div class="count" id="count">0 / 365 days</div>
+  </div>
+</div>
+
+<script>
+  const months = [
+    {name:'January', days:31},
+    {name:'February', days:28},
+    {name:'March', days:31},
+    {name:'April', days:30},
+    {name:'May', days:31},
+    {name:'June', days:30},
+    {name:'July', days:31},
+    {name:'August', days:31},
+    {name:'September', days:30},
+    {name:'October', days:31},
+    {name:'November', days:30},
+    {name:'December', days:31},
+  ];
+
+  const firstDays2025 = [3,6,6,2,4,0,2,5,1,3,6,1];
+
+  const today = new Date();
+  const todayM = today.getMonth();
+  const todayD = today.getDate();
+  const todayY = today.getFullYear();
+
+  let filled = JSON.parse(localStorage.getItem('researcher_2025') || '{}');
+
+  function save() {
+    try { localStorage.setItem('researcher_2025', JSON.stringify(filled)); } catch(e){}
+  }
+
+  function updateCount() {
+    const total = Object.values(filled).filter(Boolean).length;
+    document.getElementById('count').textContent = total + ' / 365 days';
+  }
+
+  const cal = document.getElementById('calendar');
+
+  months.forEach((m, mi) => {
+    const block = document.createElement('div');
+    block.className = 'month-block';
+
+    const name = document.createElement('div');
+    name.className = 'month-name';
+    name.textContent = m.name;
+    block.appendChild(name);
+
+    const grid = document.createElement('div');
+    grid.className = 'days-grid';
+
+    for (let i = 0; i < firstDays2025[mi]; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day empty';
+      grid.appendChild(empty);
+    }
+
+    for (let d = 1; d <= m.days; d++) {
+      const key = `${mi+1}-${d}`;
+      const cell = document.createElement('div');
+      cell.className = 'day';
+
+      if (filled[key]) cell.classList.add('filled');
+      if (todayY === 2025 && mi === todayM && d === todayD) cell.classList.add('today');
+
+      cell.title = `${m.name} ${d}`;
+      cell.addEventListener('click', () => {
+        filled[key] = !filled[key];
+        cell.classList.toggle('filled', filled[key]);
+        save();
+        updateCount();
+      });
+
+      grid.appendChild(cell);
+    }
+
+    block.appendChild(grid);
+    cal.appendChild(block);
+  });
+
+  updateCount();
+</script>
+</body>
+</html>
