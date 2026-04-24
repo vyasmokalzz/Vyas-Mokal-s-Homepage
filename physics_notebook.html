@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics Formula Notebook</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Caveat:wght@400;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #e8e0d0;
+    font-family: 'Kalam', cursive;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  /* TOP NAV */
+  .top-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .top-nav h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    color: #2c2c2c;
+    margin-right: 16px;
+    font-weight: 700;
+  }
+
+  .section-tab {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1.5px solid #aaa;
+    background: #f5f0e8;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    color: #444;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .section-tab.active {
+    background: #2c2c2c;
+    color: #f5f0e8;
+    border-color: #2c2c2c;
+  }
+
+  .section-tab:hover:not(.active) {
+    background: #ddd8ce;
+  }
+
+  .btn-add-section {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px dashed #888;
+    background: transparent;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+  }
+
+  .btn-add-section:hover { border-color: #444; color: #444; }
+
+  /* PAGE / NOTEBOOK LOOK */
+  .page {
+    background: #fefcf5;
+    border-radius: 2px;
+    box-shadow: 2px 3px 12px rgba(0,0,0,0.18), inset 0 0 0 1px #e0d8c8;
+    position: relative;
+    overflow: hidden;
+    display: none;
+  }
+
+  .page.active { display: block; }
+
+  /* Red margin line */
+  .page::before {
+    content: '';
+    position: absolute;
+    left: 72px;
+    top: 0;
+    bottom: 0;
+    width: 1.5px;
+    background: rgba(220, 80, 80, 0.35);
+    z-index: 1;
+  }
+
+  /* Horizontal ruled lines */
+  .page-lines {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      #c8d8e8 31px,
+      #c8d8e8 32px
+    );
+    background-position: 0 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Page header */
+  .page-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px 10px 80px;
+    border-bottom: 2px solid #c8d8e8;
+  }
+
+  .page-section-title {
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+
+  .page-meta {
+    font-size: 12px;
+    color: #999;
+    font-family: 'Kalam', cursive;
+  }
+
+  /* THREE COLUMN LAYOUT */
+  .columns-wrap {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    min-height: 500px;
+  }
+
+  .col {
+    padding: 12px 10px 16px 10px;
+    border-right: 1px solid #c8d8e8;
+  }
+
+  .col:last-child { border-right: none; }
+  .col:first-child { padding-left: 24px; }
+
+  /* FORMULA ENTRY */
+  .formula-entry {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 4px;
+    min-height: 32px;
+    line-height: 32px;
+  }
+
+  .bullet {
+    font-size: 18px;
+    line-height: 32px;
+    flex-shrink: 0;
+  }
+
+  .formula-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .formula-note {
+    font-size: 11px;
+    font-family: 'Kalam', cursive;
+    color: #888;
+    font-style: italic;
+    line-height: 1.3;
+  }
+
+  .formula-math {
+    font-size: 15px;
+    line-height: 32px;
+  }
+
+  /* COLORS */
+  .color-blue .formula-math, .color-blue .bullet { color: #1a3a8f; }
+  .color-black .formula-math, .color-black .bullet { color: #1a1a1a; }
+  .color-red .formula-math, .color-red .bullet { color: #c0392b; }
+
+  /* ADD FORMULA */
+  .add-formula-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    font-family: 'Kalam', cursive;
+    font-size: 13px;
+    color: #aaa;
+    cursor: pointer;
+    padding: 4px 0;
+    border: none;
+    background: none;
+  }
+
+  .add-formula-btn:hover { color: #666; }
+
+  /* MODAL */
+  .modal-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-bg.open { display: flex; }
+
+  .modal {
+    background: #fefcf5;
+    border-radius: 8px;
+    padding: 24px;
+    width: 440px;
+    max-width: 95vw;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    font-family: 'Kalam', cursive;
+  }
+
+  .modal h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #1a1a2e;
+  }
+
+  .modal label {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+    margin-top: 10px;
+  }
+
+  .modal input, .modal textarea, .modal select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    background: #fff;
+    color: #222;
+    outline: none;
+  }
+
+  .modal textarea { resize: vertical; min-height: 60px; }
+
+  .modal input:focus, .modal textarea:focus, .modal select:focus {
+    border-color: #1a3a8f;
+  }
+
+  .modal-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .mbtn {
+    padding: 7px 18px;
+    border-radius: 20px;
+    border: 1.5px solid #aaa;
+    background: #f5f0e8;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .mbtn.primary {
+    background: #1a3a8f;
+    color: #fff;
+    border-color: #1a3a8f;
+  }
+
+  .mbtn:hover { opacity: 0.85; }
+
+  .preview-area {
+    background: #f5f0e8;
+    border-radius: 6px;
+    padding: 10px;
+    min-height: 44px;
+    margin-top: 6px;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  /* COLOR PICKER */
+  .color-pick {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .color-pick label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 0;
+  }
+
+  .color-pick input[type=radio] { width: auto; }
+
+  /* DELETE hover */
+  .formula-entry:hover .del-btn { opacity: 1; }
+
+  .del-btn {
+    opacity: 0;
+    font-size: 11px;
+    color: #c0392b;
+    cursor: pointer;
+    line-height: 32px;
+    padding: 0 3px;
+    flex-shrink: 0;
+    transition: opacity 0.15s;
+    background: none;
+    border: none;
+  }
+
+  /* Spine of notebook */
+  .spine {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    background: repeating-linear-gradient(
+      180deg,
+      #c8a96e 0px, #c8a96e 12px,
+      #b8985e 12px, #b8985e 13px
+    );
+    z-index: 3;
+  }
+
+  .hole {
+    position: absolute;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e8e0d0;
+    border: 1px solid #bbb;
+    z-index: 4;
+  }
+
+  .col-header {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    color: #bbb;
+    text-align: center;
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+    border-bottom: 1px dashed #ddd;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <h1>📓 Physics Notebook</h1>
+  <div id="section-tabs"></div>
+  <button class="btn-add-section" onclick="openNewSection()">+ section</button>
+</div>
+
+<div id="pages"></div>
+
+<!-- ADD FORMULA MODAL -->
+<div class="modal-bg" id="formula-modal">
+  <div class="modal">
+    <h3>Add Formula</h3>
+    <label>Note / label (optional)</label>
+    <input type="text" id="fm-note" placeholder="e.g. Gauss's Law, Poisson eqn...">
+    <label>LaTeX formula</label>
+    <textarea id="fm-latex" placeholder="e.g. \oint \vec{E}\cdot d\vec{S} = Q_{enc}/\varepsilon_0" oninput="livePreview()"></textarea>
+    <div class="preview-area" id="fm-preview">preview appears here</div>
+    <label>Color</label>
+    <div class="color-pick">
+      <label><input type="radio" name="fm-color" value="color-blue" checked> <span style="color:#1a3a8f;font-weight:700;">Blue</span></label>
+      <label><input type="radio" name="fm-color" value="color-black"> <span style="color:#1a1a1a;font-weight:700;">Black</span></label>
+      <label><input type="radio" name="fm-color" value="color-red"> <span style="color:#c0392b;font-weight:700;">Red</span></label>
+    </div>
+    <label>Column</label>
+    <select id="fm-col">
+      <option value="0">Column 1 (left)</option>
+      <option value="1">Column 2 (middle)</option>
+      <option value="2">Column 3 (right)</option>
+    </select>
+    <div class="modal-btns">
+      <button class="mbtn" onclick="closeFormulaModal()">cancel</button>
+      <button class="mbtn primary" onclick="submitFormula()">add formula</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW SECTION MODAL -->
+<div class="modal-bg" id="section-modal">
+  <div class="modal">
+    <h3>New Section</h3>
+    <label>Section name</label>
+    <input type="text" id="sm-name" placeholder="e.g. Quantum Field Theory">
+    <div class="modal-btns">
+      <button class="mbtn" onclick="closeSectionModal()">cancel</button>
+      <button class="mbtn primary" onclick="submitSection()">create</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DEFAULT_DATA = [
+  {
+    id: 'electro', name: 'Electrodynamics',
+    cols: [
+      [
+        { note: "Gauss's Law", latex: "\\oint \\vec{E}\\cdot d\\vec{S} = Q_{enc}/\\varepsilon_0", color: "color-blue" },
+        { note: "", latex: "\\nabla\\cdot\\vec{E} = +\\rho/\\varepsilon_0", color: "color-blue" },
+        { note: "Poisson eqn", latex: "\\nabla^2 V = -\\rho/\\varepsilon_0", color: "color-red" },
+        { note: "Laplace eqn", latex: "\\nabla^2 V = 0", color: "color-black" },
+        { note: "Circular arc", latex: "E = \\dfrac{\\lambda}{2\\pi\\varepsilon_0 R}\\sin(\\phi)", color: "color-blue" },
+        { note: "Rod", latex: "E_z = \\dfrac{\\lambda}{4\\pi\\varepsilon_0 a}(\\sin\\theta_2 + \\sin\\theta_1)", color: "color-blue" },
+        { note: "", latex: "E_y = \\dfrac{\\lambda}{4\\pi\\varepsilon_0 a}(\\cos\\theta_1 - \\cos\\theta_2)", color: "color-blue" },
+        { note: "Flux through disc", latex: "\\phi = \\dfrac{\\lambda}{2\\varepsilon_0}(1-\\cos\\alpha)", color: "color-black" },
+        { note: "", latex: "V = \\dfrac{k\\hat{a}}{r^2+x^2}", color: "color-black" },
+        { note: "Ring", latex: "V = kQ/\\sqrt{R^2+x^2}", color: "color-red" },
+        { note: "Hollow sphere", latex: "V_{out}=kQ/r", color: "color-black" },
+        { note: "Solid sphere", latex: "V_{in}=kQ/R", color: "color-black" },
+        { note: "", latex: "V_{out}=kQ/r", color: "color-black" },
+        { note: "", latex: "V_{in}=\\dfrac{kQ}{2R}\\left(3-\\dfrac{r^2}{R^2}\\right)", color: "color-black" },
+      ],
+      [
+        { note: "Dipole potential", latex: "V = \\dfrac{p\\cos\\theta}{4\\pi\\varepsilon_0 t^2}", color: "color-blue" },
+        { note: "", latex: "U = -\\vec{p}\\cdot\\vec{E}", color: "color-blue" },
+        { note: "", latex: "\\vec{F} = \\vec{p}\\cdot\\nabla\\vec{E}", color: "color-blue" },
+        { note: "above/below", latex: "\\vec{E}^{above}_{\\parallel} = \\vec{E}^{below}_{\\parallel}", color: "color-black" },
+        { note: "", latex: "\\vec{E}^{above}_{\\perp} - \\vec{E}^{below}_{\\perp} = \\dfrac{\\sigma}{\\varepsilon_0}\\hat{n}", color: "color-black" },
+        { note: "", latex: "\\vec{P}_{in} = \\alpha\\vec{E}", color: "color-red" },
+        { note: "", latex: "\\vec{P} = \\vec{P}_{in}/\\Delta V", color: "color-red" },
+        { note: "", latex: "\\sigma_b = \\vec{P}\\cdot\\hat{n} \\quad \\rho_b = -\\nabla\\cdot\\vec{P}", color: "color-black" },
+        { note: "", latex: "\\vec{D} = \\varepsilon_0\\vec{E}+\\vec{P}", color: "color-blue" },
+        { note: "", latex: "\\nabla\\cdot\\vec{D} = \\rho_f", color: "color-blue" },
+        { note: "", latex: "\\oint\\vec{D}\\cdot d\\vec{S} = q_{free}", color: "color-blue" },
+        { note: "", latex: "\\vec{P} = \\varepsilon_0\\chi_e\\vec{E}", color: "color-black" },
+        { note: "", latex: "\\varepsilon_r = 1+\\chi_e", color: "color-black" },
+        { note: "", latex: "\\varepsilon = \\varepsilon_f/1+\\chi_e \\quad \\varepsilon_b = -\\chi_e f/1+\\chi_e", color: "color-red" },
+      ],
+      [
+        { note: "", latex: "d\\vec{B} = \\dfrac{\\mu_0}{4\\pi}\\dfrac{I\\,d\\vec{l}\\times\\hat{r}}{r^2}", color: "color-blue" },
+        { note: "", latex: "\\vec{B} = \\dfrac{\\mu_0 I}{4\\pi d}(\\sin\\phi_1+\\sin\\phi_2)", color: "color-blue" },
+        { note: "", latex: "\\vec{B} = \\dfrac{\\mu_0 I}{2\\pi d}", color: "color-black" },
+        { note: "", latex: "\\vec{B} = \\dfrac{\\mu_0 I R^2}{2(R^2+z^2)^{3/2}}", color: "color-black" },
+        { note: "n-gen solenoid", latex: "\\vec{B} = n\\mu_0 I\\sinh\\left(\\dfrac{\\pi}{n}\\right)", color: "color-red" },
+        { note: "", latex: "\\vec{B} = \\nabla\\times\\vec{A}", color: "color-blue" },
+        { note: "", latex: "\\oint\\vec{B}\\cdot d\\vec{l} = \\mu_0 I", color: "color-blue" },
+        { note: "solenoid", latex: "\\vec{B} = \\mu_0 nI", color: "color-black" },
+        { note: "", latex: "\\vec{F} = q(\\vec{E}+\\vec{v}\\times\\vec{B})", color: "color-red" },
+        { note: "", latex: "\\vec{F} = I\\vec{l}\\times\\vec{B}", color: "color-red" },
+        { note: "", latex: "\\vec{m} = I\\vec{A}", color: "color-black" },
+        { note: "", latex: "\\vec{B} = \\mu_0 NI\\dfrac{\\cos\\theta_1-\\cos\\theta_2}{2l}", color: "color-blue" },
+      ]
+    ]
+  },
+  {
+    id: 'quantum', name: 'Quantum Mechanics',
+    cols: [
+      [
+        { note: "Schrödinger eqn", latex: "i\\hbar\\dfrac{\\partial\\psi}{\\partial t} = \\hat{H}\\psi", color: "color-blue" },
+        { note: "Time-independent", latex: "\\hat{H}\\psi = E\\psi", color: "color-blue" },
+        { note: "Momentum operator", latex: "\\hat{p} = -i\\hbar\\nabla", color: "color-black" },
+        { note: "Canonical commutator", latex: "[\\hat{x},\\hat{p}] = i\\hbar", color: "color-red" },
+        { note: "Uncertainty", latex: "\\Delta x\\,\\Delta p \\geq \\hbar/2", color: "color-blue" },
+      ],
+      [
+        { note: "Expectation value", latex: "\\langle A\\rangle = \\langle\\psi|\\hat{A}|\\psi\\rangle", color: "color-black" },
+        { note: "Normalization", latex: "\\int_{-\\infty}^{\\infty}|\\psi|^2\\,dx = 1", color: "color-black" },
+        { note: "Angular momentum", latex: "[L_x,L_y]=i\\hbar L_z", color: "color-red" },
+        { note: "Ladder operators", latex: "L_\\pm = L_x\\pm iL_y", color: "color-blue" },
+      ],
+      [
+        { note: "Hydrogen energy", latex: "E_n = -\\dfrac{13.6\\text{ eV}}{n^2}", color: "color-red" },
+        { note: "de Broglie", latex: "\\lambda = h/p", color: "color-black" },
+        { note: "WKB tunneling", latex: "T \\approx e^{-2\\int_a^b|k|dx}", color: "color-blue" },
+      ]
+    ]
+  },
+  {
+    id: 'qft', name: 'QFT',
+    cols: [
+      [
+        { note: "Klein-Gordon", latex: "(\\partial^\\mu\\partial_\\mu + m^2)\\phi = 0", color: "color-blue" },
+        { note: "Dirac equation", latex: "(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0", color: "color-blue" },
+        { note: "QED Lagrangian", latex: "\\mathcal{L} = \\bar\\psi(i\\not{D}-m)\\psi - \\tfrac{1}{4}F_{\\mu\\nu}F^{\\mu\\nu}", color: "color-red" },
+      ],
+      [
+        { note: "Feynman propagator", latex: "G_F = \\int\\dfrac{d^4k}{(2\\pi)^4}\\dfrac{e^{-ik\\cdot x}}{k^2-m^2+i\\epsilon}", color: "color-black" },
+        { note: "Path integral", latex: "Z = \\int\\mathcal{D}\\phi\\, e^{iS[\\phi]/\\hbar}", color: "color-blue" },
+      ],
+      [
+        { note: "Yang-Mills", latex: "\\mathcal{L} = -\\tfrac{1}{4}F^a_{\\mu\\nu}F^{a\\mu\\nu}", color: "color-red" },
+        { note: "Covariant deriv.", latex: "D_\\mu = \\partial_\\mu - igA_\\mu", color: "color-black" },
+      ]
+    ]
+  },
+  {
+    id: 'pp', name: 'Particle Physics',
+    cols: [
+      [
+        { note: "Fermi's Golden Rule", latex: "\\Gamma = \\dfrac{2\\pi}{\\hbar}|\\langle f|H'|i\\rangle|^2\\rho(E)", color: "color-blue" },
+        { note: "Breit-Wigner", latex: "\\sigma(E) = \\sigma_0\\dfrac{\\Gamma^2/4}{(E-E_0)^2+\\Gamma^2/4}", color: "color-red" },
+      ],
+      [
+        { note: "CKM unitarity", latex: "V^\\dagger V = \\mathbf{1}", color: "color-black" },
+        { note: "Mandelstam s", latex: "s = (p_1+p_2)^2", color: "color-blue" },
+        { note: "Mandelstam t", latex: "t = (p_1-p_3)^2", color: "color-blue" },
+      ],
+      [
+        { note: "Running coupling", latex: "\\alpha_s(Q^2) = \\dfrac{\\alpha_s(\\mu^2)}{1+\\frac{\\alpha_s(\\mu^2)}{2\\pi}b_0\\ln(Q^2/\\mu^2)}", color: "color-red" },
+        { note: "Higgs mechanism", latex: "m_W = \\tfrac{1}{2}gv", color: "color-black" },
+      ]
+    ]
+  }
+];
+
+let data = JSON.parse(localStorage.getItem('phys-nb') || 'null') || JSON.parse(JSON.stringify(DEFAULT_DATA));
+let activeSection = data[0]?.id;
+let pendingSectionId = null;
+let pendingColIdx = null;
+
+function save() { try { localStorage.setItem('phys-nb', JSON.stringify(data)); } catch(e){} }
+function uid() { return '_' + Math.random().toString(36).slice(2,8); }
+
+function renderAll() {
+  renderTabs();
+  renderPages();
+}
+
+function renderTabs() {
+  const container = document.getElementById('section-tabs');
+  container.innerHTML = data.map(s =>
+    `<button class="section-tab ${s.id===activeSection?'active':''}" onclick="switchSection('${s.id}')">${s.name}</button>`
+  ).join('');
+}
+
+function renderPages() {
+  const container = document.getElementById('pages');
+  container.innerHTML = data.map(s => {
+    const holes = [80,160,240,320,400,480].map(top =>
+      `<div class="hole" style="top:${top}px;"></div>`
+    ).join('');
+
+    const cols = [0,1,2].map(ci => {
+      const formulas = (s.cols[ci] || []);
+      const items = formulas.map((f, fi) =>
+        `<div class="formula-entry ${f.color}" id="fe-${s.id}-${ci}-${fi}">
+          <span class="bullet">•</span>
+          <div class="formula-body">
+            ${f.note ? `<div class="formula-note">${escHtml(f.note)}</div>` : ''}
+            <div class="formula-math">\\(${f.latex}\\)</div>
+          </div>
+          <button class="del-btn" onclick="deleteFormula('${s.id}',${ci},${fi})" title="delete">✕</button>
+        </div>`
+      ).join('');
+
+      return `<div class="col">
+        <div class="col-header">col ${ci+1}</div>
+        ${items}
+        <button class="add-formula-btn" onclick="openFormulaModal('${s.id}',${ci})">+ formula</button>
+      </div>`;
+    }).join('');
+
+    return `<div class="page ${s.id===activeSection?'active':''}" id="page-${s.id}">
+      <div class="spine">${holes}</div>
+      <div class="page-lines"></div>
+      <div class="page-header" style="padding-left:36px;">
+        <div class="page-section-title">${escHtml(s.name)}</div>
+        <div class="page-meta">Physics Notebook &nbsp;·&nbsp; LaTeX</div>
+      </div>
+      <div class="columns-wrap" style="padding-left:24px;">
+        ${cols}
+      </div>
+    </div>`;
+  }).join('');
+
+  setTimeout(() => {
+    if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+  }, 50);
+}
+
+function switchSection(id) {
+  activeSection = id;
+  renderAll();
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function deleteFormula(sid, ci, fi) {
+  const sec = data.find(s=>s.id===sid);
+  sec.cols[ci].splice(fi, 1);
+  save();
+  renderAll();
+}
+
+/* FORMULA MODAL */
+function openFormulaModal(sid, ci) {
+  pendingSectionId = sid;
+  pendingColIdx = ci;
+  document.getElementById('fm-note').value = '';
+  document.getElementById('fm-latex').value = '';
+  document.getElementById('fm-preview').innerHTML = 'preview appears here';
+  document.querySelector('input[name=fm-color][value=color-blue]').checked = true;
+  document.getElementById('fm-col').value = ci;
+  document.getElementById('formula-modal').classList.add('open');
+  document.getElementById('fm-latex').focus();
+}
+
+function closeFormulaModal() {
+  document.getElementById('formula-modal').classList.remove('open');
+}
+
+function livePreview() {
+  const ltx = document.getElementById('fm-latex').value;
+  const prev = document.getElementById('fm-preview');
+  prev.innerHTML = ltx ? '\\(' + ltx + '\\)' : 'preview appears here';
+  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([prev]);
+}
+
+function submitFormula() {
+  const note = document.getElementById('fm-note').value.trim();
+  const latex = document.getElementById('fm-latex').value.trim();
+  const color = document.querySelector('input[name=fm-color]:checked').value;
+  const colIdx = parseInt(document.getElementById('fm-col').value);
+  if (!latex) { alert('Please enter a LaTeX formula.'); return; }
+  const sec = data.find(s=>s.id===pendingSectionId);
+  if (!sec.cols[colIdx]) sec.cols[colIdx] = [];
+  sec.cols[colIdx].push({ note, latex, color });
+  save();
+  closeFormulaModal();
+  renderAll();
+}
+
+/* SECTION MODAL */
+function openNewSection() {
+  document.getElementById('sm-name').value = '';
+  document.getElementById('section-modal').classList.add('open');
+  document.getElementById('sm-name').focus();
+}
+
+function closeSectionModal() {
+  document.getElementById('section-modal').classList.remove('open');
+}
+
+function submitSection() {
+  const name = document.getElementById('sm-name').value.trim();
+  if (!name) return;
+  const id = 'sec' + uid();
+  data.push({ id, name, cols: [[], [], []] });
+  activeSection = id;
+  save();
+  closeSectionModal();
+  renderAll();
+}
+
+/* close modals on bg click */
+document.getElementById('formula-modal').addEventListener('click', function(e){ if(e.target===this) closeFormulaModal(); });
+document.getElementById('section-modal').addEventListener('click', function(e){ if(e.target===this) closeSectionModal(); });
+
+/* keyboard shortcuts */
+document.addEventListener('keydown', e => {
+  if (e.key==='Escape') { closeFormulaModal(); closeSectionModal(); }
+  if (e.key==='Enter' && document.getElementById('section-modal').classList.contains('open')) submitSection();
+});
+
+renderAll();
+</script>
+</body>
+</html>
