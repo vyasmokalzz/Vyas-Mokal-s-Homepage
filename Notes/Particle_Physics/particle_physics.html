@@ -14,19 +14,67 @@
   #pdf-topbar h2 { margin:0; font-size:1.25rem; }
   #pdf-topbar .title { margin:0; font-size:1.25rem; display:flex; align-items:center; gap:12px; }
   #pdf-frame { width:100%; height:calc(100vh - 64px); border:0; }
+  .ios-fallback {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 64px);
+    padding: 32px 24px;
+    text-align: center;
+    gap: 16px;
+    background: #f7f7f7;
+  }
+  .ios-fallback svg { width: 64px; height: 64px; opacity: 0.5; }
+  .ios-fallback p { font-size: 15px; color: #666; line-height: 1.5; max-width: 280px; }
+  .open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #333;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 4px;
+  }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="content">
     <div id="pdf-topbar">
-      <div class="title"><a href="../../index.html">← Back</a><h2 style="margin:0">Non-Linear Dynamics Notes</h2></div>
+      <div class="title"><a href="../../index.html">← Back</a><h2 style="margin:0">Particle Physics Notes</h2></div>
     </div>
 
     <iframe id="pdf-frame" src="Particle_Physics_Notes.pdf">
       This browser does not support embedded PDFs. You can <a href="Particle_Physics_Notes.pdf" target="_blank">download the PDF</a> instead.
     </iframe>
+    <div id="ios-fallback" class="ios-fallback">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="12" y1="12" x2="12" y2="18"/>
+        <line x1="9" y1="15" x2="15" y2="15"/>
+      </svg>
+      <p>Safari on iPhone can't display PDFs inside a page. Tap below to open it in the full PDF viewer.</p>
+      <a class="open-btn" href="Particle_Physics_Notes.pdf" target="_blank">Open PDF</a>
+    </div>
   </div>
 </div>
+
+<script>
+function isIOS() {
+  return /iP(hone|ad|od)/.test(navigator.userAgent) ||
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+if (isIOS()) {
+  document.getElementById('pdf-frame').style.display = 'none';
+  document.getElementById('ios-fallback').style.display = 'flex';
+}
+</script>
 </body>
 </html>
