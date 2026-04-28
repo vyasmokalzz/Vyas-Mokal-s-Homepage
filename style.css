@@ -1,183 +1,202 @@
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'IBM Plex Serif', Georgia, serif;
     margin: 0;
-    background: #f4f6f8;
-    color: #222;
+    background: #f0ede8;
+    color: #1a1a1a;
+    line-height: 1.7;
 }
 
+/* ── Header ── */
 header {
-    background: #1f2933;
-    color: #fff;
-    padding: 30px;
-    text-align: center;
-}
-
-nav {
     background: #111827;
-    padding: 10px;
-    text-align: center;
-}
-
-nav a {
     color: #fff;
-    margin: 0 12px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-section {
-    max-width: 900px;
-    margin: auto;
-    padding: 30px;
-    background: #fff;
-    margin-top: 20px;
-}
-
-h2 {
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
-}
-
-footer {
+    padding: 48px 30px 40px;
     text-align: center;
-    padding: 20px;
-    background: #1f2933;
-    color: #fff;
-    margin-top: 40px;
+    border-bottom: 3px solid #2d4a6e;
 }
 
-/* Responsive improvements */
-* { box-sizing: border-box; }
-
-/* Make images and iframes scale */
-img, iframe, video {
-    max-width: 100%;
-    height: auto;
+header h1 {
+    margin: 0 0 8px;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-family: 'IBM Plex Serif', serif;
 }
 
-/* Navigation: allow wrapping on small screens */
+header p {
+    margin: 0;
+    opacity: 0.75;
+    font-size: 0.95rem;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.03em;
+}
+
+/* ── Nav ── */
 nav {
+    background: #1f2933;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+    gap: 0;
+    border-bottom: 1px solid #2d3748;
 }
 
 nav a {
+    color: #cbd5e1;
+    padding: 12px 18px;
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.15s, background 0.15s;
     display: inline-block;
-    padding: 8px 12px;
 }
 
-/* Sections: use fluid padding on small screens */
+nav a:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.07);
+}
+
+/* ── Sections ── */
 section {
-    padding: 20px;
+    max-width: 860px;
+    margin: 28px auto;
+    padding: 32px 36px;
+    background: #fff;
+    border: 1px solid #e2ddd7;
+    border-radius: 4px;
 }
 
-/* Smaller header on mobile */
-header {
-    padding: 20px;
+h2 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border-bottom: 1px solid #e2ddd7;
+    padding-bottom: 8px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #111827;
+    letter-spacing: 0.01em;
 }
 
-/* Make the main content area responsive */
-.content, section {
-    max-width: 100%;
-}
+p { margin: 0 0 12px; }
+p:last-child { margin-bottom: 0; }
 
-/* Utility: readable type scaling on small screens */
-@media (max-width: 600px) {
-    body { font-size: 16px; }
-    header h1 { font-size: 1.4rem; }
-    nav a { font-size: 0.95rem; padding: 8px; }
-}
+a { color: #2d4a6e; }
+a:hover { color: #111827; }
 
-/* Ensure lists have standard marker alignment unless overridden */
+/* ── Lists ── */
 ul, ol { list-style-position: outside; padding-left: 1.25rem; }
+li { margin-bottom: 6px; }
 
-/* Blog-specific styles */
+/* ── Footer ── */
+footer {
+    text-align: center;
+    padding: 24px;
+    background: #111827;
+    color: #6b7280;
+    margin-top: 40px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+}
+
+/* ── Images / media ── */
+img, iframe, video { max-width: 100%; height: auto; }
+
+/* ── Blog ── */
+.blog-list {
+    display: block;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+    overflow: hidden;
+}
+.blog-section-collapsed .blog-list { max-height: 0; opacity: 0; display: none; }
+#blog.expanded .blog-list { max-height: 2000px; opacity: 1; display: block; }
+
+.featured-blog {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background: #faf9f7;
+    border: 1px solid #e2ddd7;
+    padding: 14px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+.featured-blog img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+.featured-content h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    font-family: 'IBM Plex Serif', serif;
+}
+.featured-content .excerpt { margin: 0 0 10px; color: #555; font-size: 0.9rem; }
+
+.btn {
+    display: inline-block;
+    background: #111827;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    transition: background 0.15s;
+}
+.btn:hover { background: #2d4a6e; color: #fff; }
+
+/* ── Blog expand hint ── */
+.hint-text {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    font-size: 0.85rem;
+    font-family: 'IBM Plex Mono', monospace;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.hint-text:hover { color: #374151; background: rgba(0,0,0,0.04); }
+.hint-text::after { content: '▾'; display: inline-block; margin-left: 6px; transition: transform 0.18s ease; }
+#blog.expanded .hint-text::after { transform: rotate(180deg); }
+
+/* ── Blog header (for blog subpages) ── */
 .blog-header {
-    background: linear-gradient(90deg,#111827,#1f2933);
+    background: #111827;
     color: #fff;
     padding: 28px 20px;
     text-align: center;
 }
 .blog-header h1 { margin: 0 0 6px; font-size: 1.6rem; }
-.blog-header p { margin: 0; opacity: 0.85; }
+.blog-header p { margin: 0; opacity: 0.75; }
 
 .blog-content {
-    max-width: 900px;
+    max-width: 860px;
     margin: 20px auto;
     padding: 20px;
     background: #fff;
     display: grid;
     gap: 18px;
 }
-.blog-content .page { background:#fafafa; padding:10px; border:1px solid #eee; }
-.blog-content img { display:block; margin: 0 auto; border-radius:4px; }
+.blog-content .page { background: #fafafa; padding: 10px; border: 1px solid #eee; }
+.blog-content img { display: block; margin: 0 auto; border-radius: 4px; }
+.blog-footer { text-align: center; padding: 18px; color: #666; }
 
-.blog-footer { text-align:center; padding:18px; color:#666; }
-
-/* Blog list card for index */
-.blog-list { display:block; max-width:900px; margin: 0 auto; padding: 20px; }
-.blog-section-collapsed .blog-list { display:none; }
-#blog.expanded .blog-list { display:block; }
-
-/* Smooth collapse (optional): limit max-height when collapsed */
-.blog-list {
-    transition: max-height 0.28s ease, opacity 0.2s ease;
-    overflow: hidden;
+/* ── Responsive ── */
+@media (max-width: 700px) {
+    section { padding: 20px 18px; margin: 16px 10px; }
+    header { padding: 32px 20px 28px; }
+    header h1 { font-size: 1.6rem; }
+    .featured-blog { flex-direction: column; align-items: flex-start; }
+    .featured-blog img { width: 100%; height: auto; }
+    nav a { font-size: 0.8rem; padding: 10px 12px; }
 }
-.blog-section-collapsed .blog-list { max-height: 0; opacity: 0; }
-#blog.expanded .blog-list { max-height: 2000px; opacity: 1; }
-.blog-list a { display:block; padding:12px 14px; background:#fff; border:1px solid #e6e6e6; margin:8px 0; color:#111827; text-decoration:none; border-radius:6px; }
-.blog-list a:hover { background:#f3f4f6; }
-
-/* Featured blog card on the homepage */
-.featured-blog {
-    display:flex;
-    gap:16px;
-    align-items:center;
-    background:#fff;
-    border:1px solid #e6e6e6;
-    padding:12px;
-    border-radius:8px;
-}
-.featured-blog img {
-    width:160px;
-    height:110px;
-    object-fit:cover;
-    border-radius:6px;
-    flex-shrink:0;
-}
-.featured-content h3 { margin:0 0 6px; }
-.featured-content .excerpt { margin:0 0 10px; color:#444; }
-.btn {
-    display:inline-block;
-    background:#111827;
-    color:#fff;
-    padding:8px 12px;
-    border-radius:6px;
-    text-decoration:none;
-}
-.btn:hover { background:#0b1220; }
-
-@media (max-width:700px) {
-    .featured-blog { flex-direction:column; align-items:flex-start; }
-    .featured-blog img { width:100%; height:auto; }
-}
-
-/* Small clickable hint beside headings (e.g. Blog) */
-.hint-text {
-    background: transparent;
-    border: none;
-    color: #6b7280; /* gray-500 */
-    font-size: 0.9rem;
-    margin: 0;
-    cursor: pointer;
-    padding: 4px 6px;
-    border-radius: 6px;
-}
-.hint-text:hover { color: #374151; background: rgba(0,0,0,0.03); }
-.hint-text:focus { outline: 2px solid #cbd5e1; outline-offset: 2px; }
-.hint-text::after { content: '▾'; display:inline-block; margin-left:8px; transition: transform .18s ease; font-size:0.9rem; }
-#blog.expanded .hint-text::after { transform: rotate(180deg); }
-
