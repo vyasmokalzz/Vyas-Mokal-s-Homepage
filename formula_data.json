@@ -1,0 +1,425 @@
+[
+  {
+    "id": "electro",
+    "name": "Electrodynamics",
+    "cols": [
+      [
+        {
+          "note": "Gauss's Law",
+          "latex": "\\oint \\vec{E}\\cdot d\\vec{S} = Q_{enc}/\\varepsilon_0",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "\\nabla\\cdot\\vec{E} = +\\rho/\\varepsilon_0",
+          "color": "color-blue"
+        },
+        {
+          "note": "Poisson eqn",
+          "latex": "\\nabla^2 V = -\\rho/\\varepsilon_0",
+          "color": "color-red"
+        },
+        {
+          "note": "Laplace eqn",
+          "latex": "\\nabla^2 V = 0",
+          "color": "color-black"
+        },
+        {
+          "note": "Circular arc",
+          "latex": "E = \\dfrac{\\lambda}{2\\pi\\varepsilon_0 R}\\sin(\\phi)",
+          "color": "color-blue"
+        },
+        {
+          "note": "Rod",
+          "latex": "E_z = \\dfrac{\\lambda}{4\\pi\\varepsilon_0 a}(\\sin\\theta_2 + \\sin\\theta_1)",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "E_y = \\dfrac{\\lambda}{4\\pi\\varepsilon_0 a}(\\cos\\theta_1 - \\cos\\theta_2)",
+          "color": "color-blue"
+        },
+        {
+          "note": "Flux through disc",
+          "latex": "\\phi = \\dfrac{\\lambda}{2\\varepsilon_0}(1-\\cos\\alpha)",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "V = \\dfrac{k\\hat{a}}{r^2+x^2}",
+          "color": "color-black"
+        },
+        {
+          "note": "Ring",
+          "latex": "V = kQ/\\sqrt{R^2+x^2}",
+          "color": "color-red"
+        },
+        {
+          "note": "Hollow sphere",
+          "latex": "V_{out}=kQ/r",
+          "color": "color-black"
+        },
+        {
+          "note": "Solid sphere",
+          "latex": "V_{in}=kQ/R",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "V_{out}=kQ/r",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "V_{in}=\\dfrac{kQ}{2R}\\left(3-\\dfrac{r^2}{R^2}\\right)",
+          "color": "color-black"
+        }
+      ],
+      [
+        {
+          "note": "Dipole potential",
+          "latex": "V = \\dfrac{p\\cos\\theta}{4\\pi\\varepsilon_0 t^2}",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "U = -\\vec{p}\\cdot\\vec{E}",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{F} = \\vec{p}\\cdot\\nabla\\vec{E}",
+          "color": "color-blue"
+        },
+        {
+          "note": "above/below",
+          "latex": "\\vec{E}^{above}_{\\parallel} = \\vec{E}^{below}_{\\parallel}",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{E}^{above}_{\\perp} - \\vec{E}^{below}_{\\perp} = \\dfrac{\\sigma}{\\varepsilon_0}\\hat{n}",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{P}_{in} = \\alpha\\vec{E}",
+          "color": "color-red"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{P} = \\vec{P}_{in}/\\Delta V",
+          "color": "color-red"
+        },
+        {
+          "note": "",
+          "latex": "\\sigma_b = \\vec{P}\\cdot\\hat{n} \\quad \\rho_b = -\\nabla\\cdot\\vec{P}",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{D} = \\varepsilon_0\\vec{E}+\\vec{P}",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "\\nabla\\cdot\\vec{D} = \\rho_f",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "\\oint\\vec{D}\\cdot d\\vec{S} = q_{free}",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{P} = \\varepsilon_0\\chi_e\\vec{E}",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "\\varepsilon_r = 1+\\chi_e",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "\\varepsilon = \\varepsilon_f/1+\\chi_e \\quad \\varepsilon_b = -\\chi_e f/1+\\chi_e",
+          "color": "color-red"
+        }
+      ],
+      [
+        {
+          "note": "",
+          "latex": "d\\vec{B} = \\dfrac{\\mu_0}{4\\pi}\\dfrac{I\\,d\\vec{l}\\times\\hat{r}}{r^2}",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{B} = \\dfrac{\\mu_0 I}{4\\pi d}(\\sin\\phi_1+\\sin\\phi_2)",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{B} = \\dfrac{\\mu_0 I}{2\\pi d}",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{B} = \\dfrac{\\mu_0 I R^2}{2(R^2+z^2)^{3/2}}",
+          "color": "color-black"
+        },
+        {
+          "note": "n-gen solenoid",
+          "latex": "\\vec{B} = n\\mu_0 I\\sinh\\left(\\dfrac{\\pi}{n}\\right)",
+          "color": "color-red"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{B} = \\nabla\\times\\vec{A}",
+          "color": "color-blue"
+        },
+        {
+          "note": "",
+          "latex": "\\oint\\vec{B}\\cdot d\\vec{l} = \\mu_0 I",
+          "color": "color-blue"
+        },
+        {
+          "note": "solenoid",
+          "latex": "\\vec{B} = \\mu_0 nI",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{F} = q(\\vec{E}+\\vec{v}\\times\\vec{B})",
+          "color": "color-red"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{F} = I\\vec{l}\\times\\vec{B}",
+          "color": "color-red"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{m} = I\\vec{A}",
+          "color": "color-black"
+        },
+        {
+          "note": "",
+          "latex": "\\vec{B} = \\mu_0 NI\\dfrac{\\cos\\theta_1-\\cos\\theta_2}{2l}",
+          "color": "color-blue"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "quantum",
+    "name": "Quantum Mechanics",
+    "cols": [
+      [
+        {
+          "note": "Schrödinger eqn",
+          "latex": "i\\hbar\\dfrac{\\partial\\psi}{\\partial t} = \\hat{H}\\psi",
+          "color": "color-blue"
+        },
+        {
+          "note": "Time-independent",
+          "latex": "\\hat{H}\\psi = E\\psi",
+          "color": "color-blue"
+        },
+        {
+          "note": "Momentum operator",
+          "latex": "\\hat{p} = -i\\hbar\\nabla",
+          "color": "color-black"
+        },
+        {
+          "note": "Canonical commutator",
+          "latex": "[\\hat{x},\\hat{p}] = i\\hbar",
+          "color": "color-red"
+        },
+        {
+          "note": "Uncertainty",
+          "latex": "\\Delta x\\,\\Delta p \\geq \\hbar/2",
+          "color": "color-blue"
+        }
+      ],
+      [
+        {
+          "note": "Expectation value",
+          "latex": "\\langle A\\rangle = \\langle\\psi|\\hat{A}|\\psi\\rangle",
+          "color": "color-black"
+        },
+        {
+          "note": "Normalization",
+          "latex": "\\int_{-\\infty}^{\\infty}|\\psi|^2\\,dx = 1",
+          "color": "color-black"
+        },
+        {
+          "note": "Angular momentum",
+          "latex": "[L_x,L_y]=i\\hbar L_z",
+          "color": "color-red"
+        },
+        {
+          "note": "Ladder operators",
+          "latex": "L_\\pm = L_x\\pm iL_y",
+          "color": "color-blue"
+        }
+      ],
+      [
+        {
+          "note": "Hydrogen energy",
+          "latex": "E_n = -\\dfrac{13.6\\text{ eV}}{n^2}",
+          "color": "color-red"
+        },
+        {
+          "note": "de Broglie",
+          "latex": "\\lambda = h/p",
+          "color": "color-black"
+        },
+        {
+          "note": "WKB tunneling",
+          "latex": "T \\approx e^{-2\\int_a^b|k|dx}",
+          "color": "color-blue"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "qft",
+    "name": "QFT",
+    "cols": [
+      [
+        {
+          "note": "Klein-Gordon",
+          "latex": "(\\partial^\\mu\\partial_\\mu + m^2)\\phi = 0",
+          "color": "color-blue"
+        },
+        {
+          "note": "Dirac equation",
+          "latex": "(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0",
+          "color": "color-blue"
+        },
+        {
+          "note": "QED Lagrangian",
+          "latex": "\\mathcal{L} = \\bar\\psi(i\\not{D}-m)\\psi - \\tfrac{1}{4}F_{\\mu\\nu}F^{\\mu\\nu}",
+          "color": "color-red"
+        }
+      ],
+      [
+        {
+          "note": "Feynman propagator",
+          "latex": "G_F = \\int\\dfrac{d^4k}{(2\\pi)^4}\\dfrac{e^{-ik\\cdot x}}{k^2-m^2+i\\epsilon}",
+          "color": "color-black"
+        },
+        {
+          "note": "Path integral",
+          "latex": "Z = \\int\\mathcal{D}\\phi\\, e^{iS[\\phi]/\\hbar}",
+          "color": "color-blue"
+        }
+      ],
+      [
+        {
+          "note": "Yang-Mills",
+          "latex": "\\mathcal{L} = -\\tfrac{1}{4}F^a_{\\mu\\nu}F^{a\\mu\\nu}",
+          "color": "color-red"
+        },
+        {
+          "note": "Covariant deriv.",
+          "latex": "D_\\mu = \\partial_\\mu - igA_\\mu",
+          "color": "color-black"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "pp",
+    "name": "Particle Physics",
+    "cols": [
+      [
+        {
+          "note": "Fermi's Golden Rule",
+          "latex": "\\Gamma = \\dfrac{2\\pi}{\\hbar}|\\langle f|H'|i\\rangle|^2\\rho(E)",
+          "color": "color-blue"
+        },
+        {
+          "note": "Breit-Wigner",
+          "latex": "\\sigma(E) = \\sigma_0\\dfrac{\\Gamma^2/4}{(E-E_0)^2+\\Gamma^2/4}",
+          "color": "color-red"
+        }
+      ],
+      [
+        {
+          "note": "CKM unitarity",
+          "latex": "V^\\dagger V = \\mathbf{1}",
+          "color": "color-black"
+        },
+        {
+          "note": "Mandelstam s",
+          "latex": "s = (p_1+p_2)^2",
+          "color": "color-blue"
+        },
+        {
+          "note": "Mandelstam t",
+          "latex": "t = (p_1-p_3)^2",
+          "color": "color-blue"
+        }
+      ],
+      [
+        {
+          "note": "Running coupling",
+          "latex": "\\alpha_s(Q^2) = \\dfrac{\\alpha_s(\\mu^2)}{1+\\frac{\\alpha_s(\\mu^2)}{2\\pi}b_0\\ln(Q^2/\\mu^2)}",
+          "color": "color-red"
+        },
+        {
+          "note": "Higgs mechanism",
+          "latex": "m_W = \\tfrac{1}{2}gv",
+          "color": "color-black"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "sec_z60ega",
+    "name": "General Relativity",
+    "cols": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "sec_d3skoh",
+    "name": "Classical Mechanics",
+    "cols": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "sec_0tpwkh",
+    "name": "Condensed Matter",
+    "cols": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "sec_ddhk9f",
+    "name": "Statistical Mechanics",
+    "cols": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "sec_q3sv3y",
+    "name": "Electronics",
+    "cols": [
+      [],
+      [],
+      []
+    ]
+  }
+]

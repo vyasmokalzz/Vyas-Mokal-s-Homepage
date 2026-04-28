@@ -69,6 +69,48 @@
 
   .btn-add-section:hover { border-color: #444; color: #444; }
 
+  .btn-export {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid #1a3a8f;
+    background: transparent;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    color: #1a3a8f;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+  .btn-export:hover { background: #1a3a8f; color: #fff; }
+
+  .btn-import {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid #2e7d32;
+    background: transparent;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    color: #2e7d32;
+    cursor: pointer;
+  }
+  .btn-import:hover { background: #2e7d32; color: #fff; }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #1a1a2e;
+    color: #fff;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 999;
+  }
+  .toast.show { opacity: 1; }
+
   /* PAGE / NOTEBOOK LOOK */
   .page {
     background: #fefcf5;
@@ -319,6 +361,28 @@
 
   /* DELETE hover */
   .formula-entry:hover .del-btn { opacity: 1; }
+  .formula-entry:hover .move-btns { opacity: 1; }
+
+  .move-btns {
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex-shrink: 0;
+    transition: opacity 0.15s;
+  }
+
+  .move-btn {
+    font-size: 9px;
+    color: #1a3a8f;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0 2px;
+    line-height: 14px;
+  }
+  .move-btn:disabled { color: #ccc; cursor: default; }
+  .move-btn:not(:disabled):hover { color: #000; }
 
   .del-btn {
     opacity: 0;
@@ -378,7 +442,11 @@
   <h1>📓 Physics Notebook</h1>
   <div id="section-tabs"></div>
   <button class="btn-add-section" onclick="openNewSection()">+ section</button>
+  <button class="btn-export" onclick="exportData()">⬇ export</button>
+  <button class="btn-import" onclick="document.getElementById('import-input').click()">⬆ import</button>
+  <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)">
 </div>
+<div class="toast" id="toast"></div>
 
 <div id="pages"></div>
 
@@ -573,6 +641,10 @@ function renderPages() {
             ${f.note ? `<div class="formula-note">${escHtml(f.note)}</div>` : ''}
             <div class="formula-math">\\(${f.latex}\\)</div>
           </div>
+          <div class="move-btns">
+            <button class="move-btn" onclick="moveFormula('${s.id}',${ci},${fi},-1)" title="move up" ${fi===0?'disabled':''}>▲</button>
+            <button class="move-btn" onclick="moveFormula('${s.id}',${ci},${fi},1)" title="move down" ${fi===formulas.length-1?'disabled':''}>▼</button>
+          </div>
           <button class="del-btn" onclick="deleteFormula('${s.id}',${ci},${fi})" title="delete">✕</button>
         </div>`
       ).join('');
@@ -614,6 +686,16 @@ function escHtml(s) {
 function deleteFormula(sid, ci, fi) {
   const sec = data.find(s=>s.id===sid);
   sec.cols[ci].splice(fi, 1);
+  save();
+  renderAll();
+}
+
+function moveFormula(sid, ci, fi, dir) {
+  const sec = data.find(s=>s.id===sid);
+  const col = sec.cols[ci];
+  const ni = fi + dir;
+  if (ni < 0 || ni >= col.length) return;
+  [col[fi], col[ni]] = [col[ni], col[fi]];
   save();
   renderAll();
 }
@@ -687,6 +769,46 @@ document.addEventListener('keydown', e => {
   if (e.key==='Escape') { closeFormulaModal(); closeSectionModal(); }
   if (e.key==='Enter' && document.getElementById('section-modal').classList.contains('open')) submitSection();
 });
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function exportData() {
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'physics_notebook.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✓ Exported as physics_notebook.json');
+}
+
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const parsed = JSON.parse(ev.target.result);
+      if (!Array.isArray(parsed)) throw new Error('Invalid format');
+      data = parsed;
+      activeSection = data[0]?.id;
+      save();
+      renderAll();
+      showToast('✓ Imported ' + file.name);
+    } catch(err) {
+      alert('Import failed: not a valid notebook JSON file.');
+    }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+}
 
 renderAll();
 </script>

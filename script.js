@@ -14,34 +14,61 @@ const notes = [
     },
     { name: "Non-Linear Dynamics", file: "pdf_viewer.html?file=Notes/Non-Linear_Dyanmics/Non_Linear_Dynamics.pdf", target: "_self"},
     { name: "Quantum Field Theory", file: "pdf_viewer.html?file=Notes/QFT/Quantum_Field_Theory_Notes.pdf", target: "_self"},
-    { name: "Group Theory", file: "pdf_viewer.html?file=Notes/Group_Theory/Group_Theory.pdf", target: "_self"}
+    { name: "Group Theory", file: "pdf_viewer.html?file=Notes/Group_Theory/Group_Theory.pdf", target: "_self"},
+    {
+        name: "HRI Exams",
+        isExpandable: true, // Custom property to indicate expandable only
+        sublists: [
+            { name: "Lab Theory Exam PDF", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Lab_3_Theory_Exam_2026.pdf", target: "_self" }
+        ]
+    }
 ];
 
 function populateList(listId, data) {
     const list = document.getElementById(listId);
     data.forEach(item => {
         const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = item.file;
-        a.innerText = item.name;
-        a.target = item.target || "_blank";
-        li.appendChild(a);
-        
-        // Add sublists if they exist
-        if (item.sublists && item.sublists.length > 0) {
-            const sublist = document.createElement("ul");
-            item.sublists.forEach(subitem => {
-                const subli = document.createElement("li");
-                const suba = document.createElement("a");
-                suba.href = subitem.file;
-                suba.innerText = subitem.name;
-                suba.target = subitem.target || "_blank";
-                subli.appendChild(suba);
-                sublist.appendChild(subli);
-            });
-            li.appendChild(sublist);
+        if (item.isExpandable) {
+            // Create expandable details/summary
+            const details = document.createElement("details");
+            const summary = document.createElement("summary");
+            summary.innerText = item.name;
+            details.appendChild(summary);
+            if (item.sublists && item.sublists.length > 0) {
+                const sublist = document.createElement("ul");
+                item.sublists.forEach(subitem => {
+                    const subli = document.createElement("li");
+                    const suba = document.createElement("a");
+                    suba.href = subitem.file;
+                    suba.innerText = subitem.name;
+                    suba.target = subitem.target || "_blank";
+                    subli.appendChild(suba);
+                    sublist.appendChild(subli);
+                });
+                details.appendChild(sublist);
+            }
+            li.appendChild(details);
+        } else {
+            const a = document.createElement("a");
+            a.href = item.file;
+            a.innerText = item.name;
+            a.target = item.target || "_blank";
+            li.appendChild(a);
+            // Add sublists if they exist
+            if (item.sublists && item.sublists.length > 0) {
+                const sublist = document.createElement("ul");
+                item.sublists.forEach(subitem => {
+                    const subli = document.createElement("li");
+                    const suba = document.createElement("a");
+                    suba.href = subitem.file;
+                    suba.innerText = subitem.name;
+                    suba.target = subitem.target || "_blank";
+                    subli.appendChild(suba);
+                    sublist.appendChild(subli);
+                });
+                li.appendChild(sublist);
+            }
         }
-        
         list.appendChild(li);
     });
 }
