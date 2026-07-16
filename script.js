@@ -19,7 +19,9 @@ const notes = [
         name: "HRI Exams",
         isExpandable: true, // Custom property to indicate expandable only
         sublists: [
-            { name: "Lab Theory Exam PDF", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Lab_3_Theory_Exam_2026.pdf", target: "_self" }
+            { name: "Lab Theory Exam PDF", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Lab_3_Theory_Exam_2026.pdf", target: "_self" },
+            { name: "Numerical Methods 2025-26", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Numerical_Methods_2025-26.pdf", target: "_self" },
+            { name: "Statistical Mechanics 2025-26", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Statistical_Mechanics_2025-26.pdf", target: "_self" }
         ]
     }
 ];
