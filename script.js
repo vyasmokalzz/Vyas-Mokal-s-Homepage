@@ -1,5 +1,6 @@
 const solutions = [
-    { name: "Spacetime and Geometry by Sean Carrol", file: "Solution_Manuals/Spacetime_and_Geometry/Carrol_Gravity.html" },
+    { name: "Spacetime and Geometry by Sean Carroll", file: "Solution_Manuals/Spacetime_and_Geometry/Spacetime_and_Geometry.pdf" },
+    { name: "Particle Physics by Palash Pal", file: "Solution_Manuals/Particle_Physics_Palash_Pal/Particle_Physics_Palash_Pal.pdf" },
     { name: "Modern Quantum Mechanics J.J. Sakurai", file: "Solution_Manuals/Quantum_Mechanics/Modern_Quantum_Mechanics_Sakurai.html" }
 ];
 
