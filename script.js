@@ -20,6 +20,13 @@ const notes = [
         name: "HRI Exams",
         isExpandable: true, // Custom property to indicate expandable only
         sublists: [
+            {
+                name: "Classical Mechanics 2024-25",
+                isExpandable: true,
+                sublists: [
+                    { name: "HomeWork1", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Mechanics_2024-25/CM_HW1.pdf", target: "_self" }
+                ]
+            },
             { name: "Lab Theory Exam PDF", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Lab_Theory_Exams.pdf", target: "_self" },
             { name: "Numerical Methods 2025-26", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Numerical_Methods_2025-26.pdf", target: "_self" },
             { name: "Statistical Mechanics 2025-26", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Statistical_Mechanics_2025-26.pdf", target: "_self" }
@@ -27,53 +34,39 @@ const notes = [
     }
 ];
 
+function createListItem(item) {
+    const li = document.createElement("li");
+
+    if (item.isExpandable) {
+        const details = document.createElement("details");
+        const summary = document.createElement("summary");
+        summary.innerText = item.name;
+        details.appendChild(summary);
+        if (item.sublists && item.sublists.length > 0) {
+            const sublist = document.createElement("ul");
+            item.sublists.forEach(subitem => sublist.appendChild(createListItem(subitem)));
+            details.appendChild(sublist);
+        }
+        li.appendChild(details);
+    } else {
+        const a = document.createElement("a");
+        a.href = item.file;
+        a.innerText = item.name;
+        a.target = item.target || "_blank";
+        li.appendChild(a);
+        if (item.sublists && item.sublists.length > 0) {
+            const sublist = document.createElement("ul");
+            item.sublists.forEach(subitem => sublist.appendChild(createListItem(subitem)));
+            li.appendChild(sublist);
+        }
+    }
+
+    return li;
+}
+
 function populateList(listId, data) {
     const list = document.getElementById(listId);
-    data.forEach(item => {
-        const li = document.createElement("li");
-        if (item.isExpandable) {
-            // Create expandable details/summary
-            const details = document.createElement("details");
-            const summary = document.createElement("summary");
-            summary.innerText = item.name;
-            details.appendChild(summary);
-            if (item.sublists && item.sublists.length > 0) {
-                const sublist = document.createElement("ul");
-                item.sublists.forEach(subitem => {
-                    const subli = document.createElement("li");
-                    const suba = document.createElement("a");
-                    suba.href = subitem.file;
-                    suba.innerText = subitem.name;
-                    suba.target = subitem.target || "_blank";
-                    subli.appendChild(suba);
-                    sublist.appendChild(subli);
-                });
-                details.appendChild(sublist);
-            }
-            li.appendChild(details);
-        } else {
-            const a = document.createElement("a");
-            a.href = item.file;
-            a.innerText = item.name;
-            a.target = item.target || "_blank";
-            li.appendChild(a);
-            // Add sublists if they exist
-            if (item.sublists && item.sublists.length > 0) {
-                const sublist = document.createElement("ul");
-                item.sublists.forEach(subitem => {
-                    const subli = document.createElement("li");
-                    const suba = document.createElement("a");
-                    suba.href = subitem.file;
-                    suba.innerText = subitem.name;
-                    suba.target = subitem.target || "_blank";
-                    subli.appendChild(suba);
-                    sublist.appendChild(subli);
-                });
-                li.appendChild(sublist);
-            }
-        }
-        list.appendChild(li);
-    });
+    data.forEach(item => list.appendChild(createListItem(item)));
 }
 
 populateList("solution-list", solutions);

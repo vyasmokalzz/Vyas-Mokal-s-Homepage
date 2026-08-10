@@ -92,6 +92,11 @@ a:hover { color: #111827; }
 /* ── Lists ── */
 ul, ol { list-style-position: outside; padding-left: 1.25rem; }
 li { margin-bottom: 6px; }
+details { margin: 0.35rem 0; }
+details summary { cursor: pointer; font-weight: 600; }
+details ul { margin-top: 0.5rem; padding-left: 1rem; }
+
+details summary::-webkit-details-marker { font-size: 1.05em; }
 
 /* ── Footer ── */
 footer {
