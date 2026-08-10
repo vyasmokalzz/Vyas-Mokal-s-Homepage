@@ -16,6 +16,7 @@ const notes = [
     { name: "Non-Linear Dynamics", file: "pdf_viewer.html?file=Notes/Non-Linear_Dyanmics/Non_Linear_Dynamics.pdf", target: "_self"},
     { name: "Quantum Field Theory", file: "pdf_viewer.html?file=Notes/QFT/Quantum_Field_Theory_Notes.pdf", target: "_self"},
     { name: "Group Theory", file: "pdf_viewer.html?file=Notes/Group_Theory/Group_Theory.pdf", target: "_self"},
+    { name: "Mathematical Methods 2 (Group Theory)", file: "pdf_viewer.html?file=Notes/Mathematical_Methods_2_Group_Theory_2026_27.pdf", target: "_self" },
     {
         name: "HRI Exams",
         isExpandable: true, // Custom property to indicate expandable only
