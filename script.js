@@ -24,7 +24,37 @@ const notes = [
                 name: "Classical Mechanics 2024-25",
                 isExpandable: true,
                 sublists: [
-                    { name: "HomeWork1", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Mechanics_2024-25/CM_HW1.pdf", target: "_self" }
+                    { name: "HW1", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Mechanics_2024-25/CM_HW1.pdf", target: "_self" },
+                    { name: "HW2", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Mechanics_2024-25/HW2.pdf", target: "_self" },
+                    { name: "HW3", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Mechanics_2024-25/HW3.pdf", target: "_self" },
+                    { name: "HW4", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Mechanics_2024-25/HW4.pdf", target: "_self" },
+                    { name: "HW5", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Mechanics_2024-25/HW5.pdf", target: "_self" }
+                ]
+            },
+            {
+                name: "Classical Electrodynamics 2024-25",
+                isExpandable: true,
+                sublists: [
+                    { name: "ED HW1", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Electrodynamics_2024-25/ED_HW1_2024.pdf", target: "_self" },
+                    { name: "ED HW2", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Electrodynamics_2024-25/ED_HW2_2024%202.pdf", target: "_self" },
+                    { name: "ED HW3", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Electrodynamics_2024-25/ED_HW3_2024.pdf", target: "_self" },
+                    { name: "ED HW4", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Electrodynamics_2024-25/ED_HW4_2024.pdf", target: "_self" },
+                    { name: "ED HW5", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Electrodynamics_2024-25/ED_HW5_2024.pdf", target: "_self" },
+                    { name: "ED HW6", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Classical_Electrodynamics_2024-25/ED_HW6_2024.pdf", target: "_self" }
+                ]
+            },
+            {
+                name: "Quantum Mechanics 2024-25",
+                isExpandable: true,
+                sublists: [
+                    { name: "QM 1 Assignment 1", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Quantum_Mechanics2024-25/QM_1_Assignment_1.pdf", target: "_self" },
+                    { name: "QM 1 Assignment 2", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Quantum_Mechanics2024-25/QM_1_Assignment_2.pdf", target: "_self" },
+                    { name: "QM 1 Assignment 3", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Quantum_Mechanics2024-25/QM_1_Assignment_3.pdf", target: "_self" },
+                    { name: "QM 2 Assignment 1", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Quantum_Mechanics2024-25/QM_2_Assignment-1.pdf", target: "_self" },
+                    { name: "QM 2 Assignment 2", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Quantum_Mechanics2024-25/QM_2_Assignment-2.pdf", target: "_self" },
+                    { name: "QM 2 Assignment 3", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Quantum_Mechanics2024-25/QM_2_Assignment-3.pdf", target: "_self" },
+                    { name: "QM 2 Assignment 4", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Quantum_Mechanics2024-25/QM_2_Assignment-4.pdf", target: "_self" },
+                    { name: "Scattering Problem Sheet", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Quantum_Mechanics2024-25/ScatteringProblemSheet.pdf", target: "_self" }
                 ]
             },
             { name: "Lab Theory Exam PDF", file: "pdf_viewer.html?file=Notes/HRI%20Exams/Lab_Theory_Exams.pdf", target: "_self" },
